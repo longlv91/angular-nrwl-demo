@@ -2,13 +2,189 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "adminapp": {
+      "root": "apps/adminapp/",
+      "sourceRoot": "apps/adminapp/src",
+      "projectType": "application",
+      "prefix": "angular-nrwl-demo",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/adminapp",
+            "index": "apps/adminapp/src/index.html",
+            "main": "apps/adminapp/src/main.ts",
+            "polyfills": "apps/adminapp/src/polyfills.ts",
+            "tsConfig": "apps/adminapp/tsconfig.app.json",
+            "assets": [
+              "apps/adminapp/src/favicon.ico",
+              "apps/adminapp/src/assets"
+            ],
+            "styles": [
+              "apps/adminapp/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/adminapp/src/environments/environment.ts",
+                  "with": "apps/adminapp/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "adminapp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "adminapp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "adminapp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/adminapp/src/test.ts",
+            "polyfills": "apps/adminapp/src/polyfills.ts",
+            "tsConfig": "apps/adminapp/tsconfig.spec.json",
+            "karmaConfig": "apps/adminapp/karma.conf.js",
+            "styles": [
+              "apps/adminapp/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/adminapp/src/favicon.ico",
+              "apps/adminapp/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/adminapp/tsconfig.app.json",
+              "apps/adminapp/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "adminapp-e2e": {
+      "root": "apps/adminapp-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/adminapp-e2e/protractor.conf.js",
+            "devServerTarget": "adminapp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "adminapp:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/adminapp-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "user": {
+      "root": "libs/user",
+      "sourceRoot": "libs/user/src",
+      "projectType": "library",
+      "prefix": "angular-nrwl-demo",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/user/src/test.ts",
+            "tsConfig": "libs/user/tsconfig.spec.json",
+            "karmaConfig": "libs/user/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/user/tsconfig.lib.json",
+              "libs/user/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "shared-ui": {
+      "root": "libs/shared-ui",
+      "sourceRoot": "libs/shared-ui/src",
+      "projectType": "library",
+      "prefix": "angular-nrwl-demo",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/shared-ui/src/test.ts",
+            "tsConfig": "libs/shared-ui/tsconfig.spec.json",
+            "karmaConfig": "libs/shared-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared-ui/tsconfig.lib.json",
+              "libs/shared-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/schematics"
-    
-  }
+  },
+  "defaultProject": "adminapp"
 }

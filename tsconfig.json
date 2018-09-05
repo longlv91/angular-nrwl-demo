@@ -16,6 +16,12 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@angular-nrwl-demo/user": [
+        "libs/user/src/index.ts"
+      ],
+      "@angular-nrwl-demo/shared-ui": [
+        "libs/shared-ui/src/index.ts"
+      ]
     }
   },
   "exclude": [

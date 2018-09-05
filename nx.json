@@ -7,5 +7,18 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "adminapp": {
+      "tags": []
+    },
+    "adminapp-e2e": {
+      "tags": []
+    },
+    "user": {
+      "tags": []
+    },
+    "shared-ui": {
+      "tags": []
+    }
+  }
 }

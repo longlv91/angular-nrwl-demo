@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "longlv1",
+      "password": "123456",
+      "firstName": "Long",
+      "lastName": "Lee",
+      "phone": "0123456789",
+      "address": "Cau Giay, Ha Noi"
+    },
+    {
+      "id": 2,
+      "username": "admin",
+      "password": "123456",
+      "firstName": "Webframework",
+      "lastName": "Admin",
+      "phone": "321323213",
+      "address": "434324234"
+    },
+    {
+      "id": 3,
+      "username": "admin2",
+      "password": "123456",
+      "firstName": "sddsasdsa",
+      "lastName": "sdasd",
+      "phone": "dsadsa",
+      "address": "dsadsad"
+    }
+  ]
+}

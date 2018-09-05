@@ -1,0 +1,86 @@
+<h3>List Users</h3>
+<p-table [value]="users" selectionMode="single" [paginator]="true" [rows]="2" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>User name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone</th>
+      <th>Address</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr [pSelectableRow]="user">
+      <td>{{user.id}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.address}}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+    <div style="text-align:left">
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add User"></button>
+    </div>
+</ng-template>
+</p-table>
+<p-dialog header="User Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="400">
+  <div class="ui-g ui-fluid" *ngIf="user">
+      <div class="ui-g-12">
+          <div class="ui-g-4">
+              <label for="username">Username:</label>
+          </div>
+          <div class="ui-g-8">
+              <input pInputText id="username" [(ngModel)]="user.username" />
+          </div>
+      </div>
+      <div class="ui-g-12">
+          <div class="ui-g-4">
+              <label for="password">Password:</label>
+          </div>
+          <div class="ui-g-8">
+              <input type="password" pPassword id="password" [(ngModel)]="user.password" />
+          </div>
+      </div>
+      <div class="ui-g-12">
+          <div class="ui-g-4">
+              <label for="firstName">First Name:</label>
+          </div>
+          <div class="ui-g-8">
+              <input pInputText id="firstName" [(ngModel)]="user.firstName" />
+          </div>
+      </div>
+      <div class="ui-g-12">
+          <div class="ui-g-4">
+              <label for="lastName">Last Name:</label>
+          </div>
+          <div class="ui-g-8">
+              <input pInputText id="lastName" [(ngModel)]="user.lastName" />
+          </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+            <label for="phone">Phone:</label>
+        </div>
+        <div class="ui-g-8">
+            <input pInputText id="phone" [(ngModel)]="user.phone" />
+        </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+          <label for="address">Address:</label>
+      </div>
+      <div class="ui-g-8">
+          <input pInputText id="address" [(ngModel)]="user.address" />
+      </div>
+  </div>
+  </div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="fa fa-close" [disabled]="newUser" (click)="delete()" label="Delete"></button>
+          <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+      </div>
+  </p-footer>
+</p-dialog>
