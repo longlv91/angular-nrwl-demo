@@ -2,14 +2,39 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { UserService } from './service/user.service';
+import {
+  StoreModule,
+  ReducerManager
+} from '@ngrx/store';
+import * as fromUser from './reducers';
+import { UserListComponent } from './component/user-management/user-list/user-list.component';
+import { RouterModule } from '@angular/router';
+import { UserLayoutComponent } from './component/user-management/user-layout/user-layout.component';
+import { SharedUiModule } from '@angular-nrwl-demo/shared-ui';
+import * as fromState from './reducers/state.reducer';
 
 @NgModule({
-  declarations: [],
+  declarations: [UserListComponent, UserLayoutComponent],
   imports: [
     CommonModule,
-    HttpClientModule
+    SharedUiModule,
+    HttpClientModule,
+    StoreModule.forFeature('user', fromUser.reducers, { metaReducers: fromUser.metaReducers }),
+    StoreModule.forRoot({'state': fromState.reducer}),
+    RouterModule.forChild([
+      {
+        path: '',
+        component: UserLayoutComponent,
+        children: [
+          {
+            path: '',
+            component: UserListComponent
+          }
+        ]
+      }
+    ])
   ],
-  providers: [UserService],
-  exports: []
+  providers: [ReducerManager, UserService],
+  exports: [UserListComponent]
 })
 export class UserModule {}

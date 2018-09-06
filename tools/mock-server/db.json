@@ -26,6 +26,24 @@
       "lastName": "Admin",
       "phone": "34324",
       "address": "4234324"
+    },
+    {
+      "id": 7,
+      "username": "admin 5",
+      "password": "123456",
+      "lastName": "sadsad",
+      "phone": "sadsad",
+      "address": "dsadsad",
+      "firstName": "Webframework"
+    },
+    {
+      "id": 8,
+      "username": "admin6",
+      "password": "123456",
+      "firstName": "Bombasto",
+      "lastName": "Admin",
+      "phone": "dada",
+      "address": "dasdsad"
     }
   ]
 }

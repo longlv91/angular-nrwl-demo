@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, UserDTO } from '@angular-nrwl-demo/user';
 import { Store, select } from '@ngrx/store';
 import { State } from '../../../reducers/state.reducer';
 import { StateActionTypes } from '../../../reducers/state.actions';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NotificationService } from '@angular-nrwl-demo/notification';
+import { UserDTO } from '../../../model/user-dto';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'angular-nrwl-demo-user-list',
