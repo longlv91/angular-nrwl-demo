@@ -14,6 +14,7 @@ import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
+import { InputMaskModule } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FormsModule } from '@angular/forms';
     SplitButtonModule,
     TableModule,
     DialogModule,
-    PasswordModule
+    PasswordModule,
+    InputMaskModule
   ],
   exports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { FormsModule } from '@angular/forms';
     SplitButtonModule,
     TableModule,
     DialogModule,
-    PasswordModule
+    PasswordModule,
+    InputMaskModule
   ]
 })
 export class SharedUiModule { }

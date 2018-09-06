@@ -66,8 +66,22 @@ export class UserListComponent implements OnInit {
     return user;
   }
 
+  isDuplicateUserName(isSelf: boolean): boolean {
+    return this.users.filter(user => {
+      if (isSelf) {
+        return user.username === this.user.username;
+      } else {
+        return user.id !== this.user.id && user.username === this.user.username;
+      }
+    }).length > 0;
+  }
+
   save() {
     if (this.newUser) {
+      if (this.isDuplicateUserName(true)) {
+        this.notifyService.showWarning('Username was existed. Please try again.');
+        return false;
+      }
       this.userService.saveUser(this.user)
         .pipe(
           catchError(() => of(new Error()))
@@ -86,6 +100,10 @@ export class UserListComponent implements OnInit {
           }
         )
     } else {
+      if (this.isDuplicateUserName(false)) {
+        this.notifyService.showWarning('Username was duplicated. Please try again.');
+        return false;
+      }
       this.userService.updateUser(this.user)
         .pipe(
           catchError(() => of(new Error()))

@@ -17,6 +17,14 @@ export class NotificationService {
     });
   }
 
+  showWarning(msg: string) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warning Message',
+      detail: msg
+    });
+  }
+
   showError(msg: string) {
     this.messageService.add({
       severity: 'error',
