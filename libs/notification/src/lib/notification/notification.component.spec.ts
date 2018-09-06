@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationComponent } from './notification.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/primeng';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -8,7 +10,13 @@ describe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
+      imports: [
+        ToastModule
+      ],
+      declarations: [ NotificationComponent ],
+      providers: [
+        MessageService
+      ]
     })
     .compileComponents();
   }));

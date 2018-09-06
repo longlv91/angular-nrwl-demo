@@ -1,9 +1,27 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { Renderer } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NotificationModule } from '@angular-nrwl-demo/notification';
+
+class MockRouter {
+  public navigate() {};
+}
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent]
+      imports: [
+        RouterTestingModule,
+        NotificationModule
+      ],
+      declarations: [AppComponent],
+      providers: [
+        Renderer,
+        {provide: Router, useClass: MockRouter},
+        RouterOutlet
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -21,7 +39,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to adminapp!'
+      'Demo CRUD User Management!'
     );
   }));
 });

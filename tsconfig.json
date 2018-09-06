@@ -25,6 +25,9 @@
       "@env/*": [
         "apps/adminapp/src/environments/*"
       ],
+      "@testing/*": [
+        "tools/testing/*"
+      ],
       "@angular-nrwl-demo/notification": [
         "libs/notification/src/index.ts"
       ]

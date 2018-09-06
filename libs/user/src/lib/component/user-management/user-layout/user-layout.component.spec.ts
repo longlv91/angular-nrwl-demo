@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserLayoutComponent } from './user-layout.component';
+import { Router, RouterOutlet, ChildrenOutletContexts } from '@angular/router';
+import { Renderer } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+
+class MockRouter {
+  public navigate() {};
+}
 
 describe('UserLayoutComponent', () => {
   let component: UserLayoutComponent;
@@ -8,7 +15,16 @@ describe('UserLayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserLayoutComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [ UserLayoutComponent ],
+      providers: [
+        Renderer,
+        ChildrenOutletContexts,
+        {provide: Router, useClass: MockRouter},
+        RouterOutlet
+      ]
     })
     .compileComponents();
   }));
