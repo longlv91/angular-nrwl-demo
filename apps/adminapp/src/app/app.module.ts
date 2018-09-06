@@ -14,6 +14,7 @@ import { UserModule } from '@angular-nrwl-demo/user';
 import { SharedUiModule } from '@angular-nrwl-demo/shared-ui';
 import { AppRoutingModule } from './app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationModule } from '@angular-nrwl-demo/notification';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,8 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule,
     NxModule.forRoot(),
-    UserModule,
     SharedUiModule,
+    NotificationModule,
+    UserModule,
     StoreModule.forRoot({state: fromState.reducer}),
     //StoreModule.forFeature('state', fromState.reducer),
     //EffectsModule.forRoot([]),

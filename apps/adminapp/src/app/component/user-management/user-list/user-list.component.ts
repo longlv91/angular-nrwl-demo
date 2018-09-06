@@ -5,6 +5,7 @@ import { State } from '../../../reducers/state.reducer';
 import { StateActionTypes } from '../../../reducers/state.actions';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { NotificationService } from '@angular-nrwl-demo/notification';
 
 @Component({
   selector: 'angular-nrwl-demo-user-list',
@@ -13,14 +14,13 @@ import { of } from 'rxjs';
 })
 export class UserListComponent implements OnInit {
 
-  url = 'http://localhost:6969/users';
   users: UserDTO[];
   selectedUser: UserDTO;
   displayDialog: boolean;
   newUser: boolean;
   user: UserDTO = new UserDTO();
 
-  constructor(private userService: UserService, private store: Store<State>) {
+  constructor(private userService: UserService, private store: Store<State>, private notifyService: NotificationService) {
     store.pipe(select('state'))
       .pipe(map(v => v.userList)).subscribe(
         value => {
@@ -30,12 +30,13 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getAllUser(this.url).subscribe(
+    this.userService.getAllUser().subscribe(
       value => {
         this.store.dispatch({ type: StateActionTypes.LoadUser, payload: value });
       },
       error => {
         console.log(error);
+        this.notifyService.showError('Error: ' + error.message);
       }
     );
   }
@@ -66,32 +67,36 @@ export class UserListComponent implements OnInit {
 
   save() {
     if (this.newUser) {
-      this.userService.saveUser(this.url, this.user)
+      this.userService.saveUser(this.user)
         .pipe(
           catchError(() => of(new Error()))
         )
         .subscribe(
           user => {
             this.store.dispatch({ type: StateActionTypes.SaveUser, payload: user });
+            this.notifyService.showSuccess('Save User Successful');
           },
           error => {
             console.log(error);
+            this.notifyService.showError('Error: ' + error.message);
           },
           () => {
             this.displayDialog = false;
           }
         )
     } else {
-      this.userService.updateUser(this.url, this.user)
+      this.userService.updateUser(this.user)
         .pipe(
           catchError(() => of(new Error()))
         )
         .subscribe(
           user => {
             this.store.dispatch({ type: StateActionTypes.UpdateUser, payload: user });
+            this.notifyService.showSuccess('Update User Successful');
           },
           error => {
             console.log(error);
+            this.notifyService.showError('Error: ' + error.message);
           },
           () => {
             this.displayDialog = false;
@@ -102,16 +107,18 @@ export class UserListComponent implements OnInit {
 
   delete() {
     if (!this.newUser) {
-      this.userService.deleteUser(this.url, this.selectedUser)
+      this.userService.deleteUser(this.selectedUser)
         .pipe(
           catchError(() => of(new Error()))
         )
         .subscribe(
           user => {
             this.store.dispatch({ type: StateActionTypes.DeleteUser, payload: this.selectedUser });
+            this.notifyService.showSuccess('Delete User Successful');
           },
           error => {
             console.log(error);
+            this.notifyService.showError('Error: ' + error.message);
           },
           () => {
             this.displayDialog = false;

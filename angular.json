@@ -177,6 +177,34 @@
           }
         }
       }
+    },
+    "notification": {
+      "root": "libs/notification",
+      "sourceRoot": "libs/notification/src",
+      "projectType": "library",
+      "prefix": "app-notify",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/notification/src/test.ts",
+            "tsConfig": "libs/notification/tsconfig.spec.json",
+            "karmaConfig": "libs/notification/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/notification/tsconfig.lib.json",
+              "libs/notification/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

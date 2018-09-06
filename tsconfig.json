@@ -21,6 +21,12 @@
       ],
       "@angular-nrwl-demo/shared-ui": [
         "libs/shared-ui/src/index.ts"
+      ],
+      "@env/*": [
+        "apps/adminapp/src/environments/*"
+      ],
+      "@angular-nrwl-demo/notification": [
+        "libs/notification/src/index.ts"
       ]
     }
   },
