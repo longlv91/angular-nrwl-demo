@@ -12,12 +12,12 @@
   </ng-template>
   <ng-template pTemplate="body" let-user>
     <tr [pSelectableRow]="user">
-      <td>{{user.id}}</td>
-      <td>{{user.username}}</td>
-      <td>{{user.firstName}}</td>
-      <td>{{user.lastName}}</td>
-      <td>{{user.phone}}</td>
-      <td>{{user.address}}</td>
+      <td>{{user?.id}}</td>
+      <td>{{user?.username}}</td>
+      <td>{{user?.firstName}}</td>
+      <td>{{user?.lastName}}</td>
+      <td>{{user?.phone}}</td>
+      <td>{{user?.address}}</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="summary" let-rowData>

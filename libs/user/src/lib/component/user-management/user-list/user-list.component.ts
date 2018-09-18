@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { State } from '../../../reducers/state.reducer';
-import { StateActionTypes } from '../../../reducers/state.actions';
+// import { StateActionTypes } from '../../../reducers/state.actions';
+import { UserStateActionTypes } from '../../../reducers/user-state.actions';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { NotificationService } from '@angular-nrwl-demo/notification';
 import { UserDTO } from '../../../model/user-dto';
 import { UserService } from '../../../service/user.service';
+import * as uuid from 'uuid';
+import { UserState } from '../../../reducers/user-state.model';
 
 @Component({
   selector: 'angular-nrwl-demo-user-list',
@@ -15,16 +18,29 @@ import { UserService } from '../../../service/user.service';
 })
 export class UserListComponent implements OnInit {
 
-  users: UserDTO[];
+  /*users: UserDTO[];
   selectedUser: UserDTO;
   displayDialog: boolean;
   newUser: boolean;
   user: UserDTO = new UserDTO();
+  */
+  users: UserState[];
+  selectedUser: UserState;
+  displayDialog: boolean;
+  newUser: boolean;
+  user: UserState;
 
-  constructor(private userService: UserService, private store: Store<State>, private notifyService: NotificationService) {
-    store.pipe(select('state'))
-      .pipe(map(v => v.userList)).subscribe(
+  constructor(private userService: UserService, private store: Store<UserState>, private notifyService: NotificationService) {
+    store.pipe(select('user'))
+      .pipe(map(v => {
+        const result : UserState[] = [];
+        for (const i of v.ids) {
+          result.push(v.entities[i]);
+        }
+        return result;}
+        )).subscribe(
         value => {
+          console.log(value);
           this.users = value;
         }
       );
@@ -33,7 +49,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.userService.getAllUser().subscribe(
       value => {
-        this.store.dispatch({ type: StateActionTypes.LoadUser, payload: value });
+        this.store.dispatch({ type: UserStateActionTypes.LoadUserStates, payload: {userStates: value} });
       },
       error => {
         console.log(error);
@@ -88,7 +104,7 @@ export class UserListComponent implements OnInit {
         )
         .subscribe(
           user => {
-            this.store.dispatch({ type: StateActionTypes.SaveUser, payload: user });
+            this.store.dispatch({ type: UserStateActionTypes.AddUserState, payload: {userState: user} });
             this.notifyService.showSuccess('Save User Successful');
           },
           error => {
@@ -110,7 +126,7 @@ export class UserListComponent implements OnInit {
         )
         .subscribe(
           user => {
-            this.store.dispatch({ type: StateActionTypes.UpdateUser, payload: user });
+            this.store.dispatch({ type: UserStateActionTypes.UpsertUserState, payload: {userState: user} });
             this.notifyService.showSuccess('Update User Successful');
           },
           error => {
@@ -132,7 +148,7 @@ export class UserListComponent implements OnInit {
         )
         .subscribe(
           user => {
-            this.store.dispatch({ type: StateActionTypes.DeleteUser, payload: this.selectedUser });
+            this.store.dispatch({ type: UserStateActionTypes.DeleteUserState, payload: {id: this.selectedUser.id} });
             this.notifyService.showSuccess('Delete User Successful');
           },
           error => {

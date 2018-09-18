@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { UserLayoutComponent } from './component/user-management/user-layout/user-layout.component';
 import { SharedUiModule } from '@angular-nrwl-demo/shared-ui';
 import * as fromState from './reducers/state.reducer';
+import * as userState from './reducers/user-state.reducer';
 
 @NgModule({
   declarations: [UserListComponent, UserLayoutComponent],
@@ -19,8 +20,7 @@ import * as fromState from './reducers/state.reducer';
     CommonModule,
     SharedUiModule,
     HttpClientModule,
-    StoreModule.forFeature('user', fromUser.reducers, { metaReducers: fromUser.metaReducers }),
-    StoreModule.forRoot({'state': fromState.reducer}),
+    StoreModule.forRoot({'user': userState.reducer }),
     RouterModule.forChild([
       {
         path: '',
@@ -37,4 +37,4 @@ import * as fromState from './reducers/state.reducer';
   providers: [ReducerManager, UserService],
   exports: [UserListComponent]
 })
-export class UserModule {}
+export class UserModule { }
